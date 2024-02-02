@@ -15,7 +15,7 @@ router.delete('/api/post/delete/:id', async (req: Request, res: Response, next: 
     try {
         await Post.findOneAndRemove({ _id: id })
     } catch(err) {
-        next(new Error('post cannot be updated!'))
+        next(new Error('post cannot be updated right now!'))
     }
 
     res.status(200).json({ success: true })

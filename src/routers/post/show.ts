@@ -1,6 +1,8 @@
 import { Router, Response, Request, NextFunction } from 'express'
 import Post from '../../models/post'
 
+
+
 const router = Router()
 
 router.get('/api/post/show/:id', async (req: Request, res: Response, next: NextFunction) => {

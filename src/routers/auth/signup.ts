@@ -11,12 +11,18 @@ router.post(
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user) return next(new BadRequestError("Email already exists!"));
-    const newUser = await new User({ email, password });
+    const newUser = User.build({
+      email,
+      password,
+    });
     await newUser.save();
     req.session = {
-      jwt: jwt.sign({email, userId: newUser._id}, process.env.JWT_KEY!, { expiresIn: '1h'})
+      jwt: jwt.sign({ email, userId: newUser._id }, process.env.JWT_KEY!, {
+        expiresIn: "1h",
+      }),
     };
     res.status(201).send(newUser);
-});
+  }
+);
 
 export { router as signupRouter };
