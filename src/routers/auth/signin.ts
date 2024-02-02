@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { User } from "../../models/user";
-import { authenticationService } from "../../../common";
+import { authenticationService, BadRequestError } from "../../../common";
 import jwt from "jsonwebtoken";
 
 const router = Router();
@@ -9,12 +9,12 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (!user) return next(new Error("Invalid credentials!"));
+    if (!user) return next(new BadRequestError("Invalid credentials!"));
     const isEqual = await authenticationService.pwdCompare(
       user.password,
       password
     );
-    if (!isEqual) return next(new Error("Invalid credentials!"));
+    if (!isEqual) return next(new BadRequestError("Invalid credentials!"));
 
     const token = jwt.sign(
       {
