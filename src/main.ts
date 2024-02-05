@@ -13,9 +13,12 @@ import {
   showPostRouter,
   newCommentRouter,
   deleteCommentRouter,
+  signinRouter,
+  signoutRouter,
+  signupRouter,
 
 } from "./routers";
-import { NotFoundError, currentUser, errorHandler, requireAuth } from "../common";
+import { NotFoundError, currentUser, errorHandler, requireAuth } from "../common/src";
 
 const app = express();
 
@@ -41,10 +44,15 @@ app.use(
 );
 app.use(currentUser);
 
+app.use( signinRouter);
+app.use(signoutRouter);
+app.use( signupRouter);
+
 app.use(requireAuth, newPostRouter);
 app.use(requireAuth, deletePostRouter);
 app.use(requireAuth, updatePostRouter);
 app.use(showPostRouter);
+
 
 app.use(requireAuth, newCommentRouter);
 app.use(requireAuth, deleteCommentRouter);

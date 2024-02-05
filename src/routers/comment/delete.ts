@@ -1,7 +1,7 @@
 import { Router, Response, Request, NextFunction } from 'express'
 import Post from '../../models/post'
 import Comment from '../../models/comment'
-import { BadRequestError } from "../../../common";
+import { BadRequestError } from "../../../common/src";
 
 const router = Router()
 
@@ -18,9 +18,9 @@ router.delete('/api/comment/:commentId/delete/:postId', async (req: Request, res
         next(new Error('comment cannot be updated!'))
     }
 
-    await Post.findOneAndUpdate({ _id: postId }, { $pull: { comments: commentId } })
-
-    res.status(200).json({ success: true })
+  const post = await Post.findOneAndUpdate({ _id: postId }, { $pull: { comments: commentId } })
+    if(!post) return next(new Error());
+    res.status(200).send(post);
 })
 
 export { router as deleteCommentRouter }
