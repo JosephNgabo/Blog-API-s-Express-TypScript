@@ -5,6 +5,6 @@ import { CustomError } from "./custom-error";
         super('Not authorized!');
     }
     generateErrors(){
-        return [{message: 'Not authorized'}]
+        return [{message: ' You are not authorized'}]
     }
  }

@@ -1,6 +1,8 @@
 import { Router, Request, Response, NextFunction } from "express";
 import Post from '../../models/post'
-import { BadRequestError } from "../../../common";
+import { BadRequestError } from "../../../common/src";
+import { User } from "../../models/user";
+
 
 const router = Router()
 
@@ -17,6 +19,8 @@ router.post('/api/post/new', async (req: Request, res: Response, next: NextFunct
     });
 
     await newPost.save()
+    await User.findOneAndUpdate({_id: req.currentUser!.userId}),
+    { $push: { posts: newPost.id }}
 
     res.status(201).send(newPost)
 })

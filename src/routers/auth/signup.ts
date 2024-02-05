@@ -1,7 +1,7 @@
 import { Router, Response, Request, NextFunction } from "express";
 import { User } from "../../models/user";
 import jwt from "jsonwebtoken";
-import { BadRequestError } from "../../../common";
+import { BadRequestError } from "../../../common/src";
 
 const router = Router();
 

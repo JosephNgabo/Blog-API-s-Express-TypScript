@@ -1,4 +1,4 @@
-import { authenticationService } from "../../common";
+import { authenticationService } from "../../common/src";
 import mongoose from "mongoose";
 import { PostDoc } from "./post";
 

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import Post from '../../models/post'
-import { BadRequestError } from "../../../common";
+import { BadRequestError } from "../../../common/src";
 
 
 
